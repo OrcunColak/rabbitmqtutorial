@@ -1,0 +1,26 @@
+# https://github.com/docker-library/rabbitmq/issues/260#issuecomment-1873976300
+# I did not test this example as stomp server
+version: '3.9'
+services:
+  # http://localhost:15672
+  #  username: guest password: guest
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    configs:
+      - source: plugins
+        target: /etc/rabbitmq/enabled_plugins
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "2883:1883"
+
+configs:
+  plugins:
+    content: "[rabbitmq_management, rabbitmq_stomp]."
+
+
+
